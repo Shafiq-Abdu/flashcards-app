@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Flashcards</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">F</div>
+      <div class="brand-text">
+        <div class="brand-title">Flashcards</div>
+        <div class="brand-subtitle">Minimal AI study decks</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-btn" id="navNew">New deck</button>
+      <button class="nav-btn" id="navLibrary">Library</button>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="grid">
+      <!-- Left: Create -->
+      <aside class="panel">
+        <div class="panel-header">
+          <h2>Create</h2>
+          <p class="muted">Upload PDFs/TXT and optionally paste notes. Generate a deck, then study.</p>
+        </div>
+
+        <div class="form">
+          <label class="label">Deck name</label>
+          <input id="deckName" class="input" placeholder="e.g., Bio 101 – Chapter 3" />
+
+          <label class="label">Upload sources</label>
+          <div class="upload">
+            <input type="file" id="fileInput" multiple accept=".pdf,.txt" />
+            <div class="upload-hint muted">
+              Tip: PDFs with selectable text work best. (Scanned images need OCR.)
+            </div>
+          </div>
+
+          <label class="label">Or paste notes</label>
+          <textarea id="notesInput" class="textarea" placeholder="Paste text here..."></textarea>
+
+          <div class="row">
+            <div class="col">
+              <label class="label">Card count</label>
+              <select id="cardCount" class="select">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label class="label">Difficulty</label>
+              <select id="difficulty" class="select">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="label">Style</label>
+          <select id="style" class="select">
+            <option value="mixed" selected>Mixed</option>
+            <option value="definitions">Definitions</option>
+            <option value="qa">Q&A</option>
+            <option value="examples">Examples</option>
+          </select>
+
+          <div class="actions">
+            <button id="generateBtn" class="btn primary">Generate deck</button>
+            <button id="clearBtn" class="btn">Clear</button>
+          </div>
+
+          <div class="status" id="status"></div>
+        </div>
+
+        <div class="panel-footer muted">
+          Keyboard: <span class="kbd">←</span>/<span class="kbd">→</span> to navigate, <span class="kbd">Space</span> to flip.
+        </div>
+      </aside>
+
+      <!-- Right: Study -->
+      <section class="panel">
+        <div class="panel-header row-between">
+          <div>
+            <h2>Study</h2>
+            <p class="muted" id="deckMeta">No deck loaded.</p>
+          </div>
+          <div class="mini-actions">
+            <button id="saveBtn" class="btn">Save</button>
+            <button id="exportBtn" class="btn">Export</button>
+            <label class="btn filebtn">
+              Import
+              <input type="file" id="importInput" accept=".json" hidden />
+            </label>
+          </div>
+        </div>
+
+        <div class="study">
+          <div class="progress-wrap">
+            <div class="progress">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="muted" id="counter">No flashcards yet.</div>
+          </div>
+
+          <div id="flashcard" class="card hidden" tabindex="0" aria-label="Flashcard">
+            <div class="card-top">
+              <div class="pill" id="sidePill">Question</div>
+              <div class="muted" id="tapHint">Tap to flip</div>
+            </div>
+            <div id="cardContent" class="card-content"></div>
+          </div>
+
+          <div class="controls">
+            <button id="prevBtn" class="btn">Previous</button>
+            <button id="flipBtn" class="btn">Flip</button>
+            <button id="shuffleBtn" class="btn">Shuffle</button>
+            <button id="nextBtn" class="btn">Next</button>
+          </div>
+
+          <div class="grade">
+            <button class="btn ghost" data-grade="again">Again</button>
+            <button class="btn ghost" data-grade="hard">Hard</button>
+            <button class="btn ghost" data-grade="good">Good</button>
+            <button class="btn ghost" data-grade="easy">Easy</button>
+          </div>
+        </div>
+
+        <hr class="divider"/>
+
+        <!-- Library -->
+        <div class="panel-header row-between">
+          <div>
+            <h2>Library</h2>
+            <p class="muted">Saved decks in this browser (localStorage).</p>
+          </div>
+          <button id="refreshLibraryBtn" class="btn">Refresh</button>
+        </div>
+
+        <div id="library" class="library">
+          <div class="muted">No saved decks.</div>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+<script src="script.js"></script>
+</html>
