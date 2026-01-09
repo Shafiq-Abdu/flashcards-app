@@ -1,4 +1,5 @@
-const API_BASE = "http://127.0.0.1:8000"; // keep localhost for desktop. For phone later, change to your LAN IP.
+const API_BASE = "https://flashcards-app-ppop.onrender.com";
+ // keep localhost for desktop. For phone later, change to your LAN IP.
 
 const els = {
   navNew: document.getElementById("navNew"),
