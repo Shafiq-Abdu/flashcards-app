@@ -162,8 +162,18 @@
   </main>
 <script>
   if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./sw.js");
+    window.addEventListener("load", async () => {
+      const reg = await navigator.serviceWorker.register("./sw.js");
+
+      // If the service worker updates, reload once to pull new files
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        if (event.data?.type === "SW_UPDATED") {
+          window.location.reload();
+        }
+      });
+
+      // Also check for updates on each load
+      reg.update();
     });
   }
 </script>

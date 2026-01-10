@@ -1,21 +1,21 @@
-const CACHE_NAME = "flashcards-pwa-v1";
+const CACHE_VERSION = "v3"; // <-- bump this every time you deploy UI changes
+const CACHE_NAME = `flashcards-pwa-${CACHE_VERSION}`;
+
 const APP_SHELL = [
   "/flashcards-app/",
   "/flashcards-app/index.html",
   "/flashcards-app/style.css",
   "/flashcards-app/script.js",
-  "/flashcards-app/manifest.webmanifest"
+  "/flashcards-app/manifest.webmanifest",
+  "/flashcards-app/icons/icon-192.png",
+  "/flashcards-app/icons/icon-512.png"
 ];
 
-// Install: cache app shell
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
   self.skipWaiting();
 });
 
-// Activate: clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -23,16 +23,20 @@ self.addEventListener("activate", (event) => {
     )
   );
   self.clients.claim();
+
+  // Tell all open tabs/apps: "a new version is active"
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      clients.forEach((client) => client.postMessage({ type: "SW_UPDATED" }));
+    })
+  );
 });
 
-// Fetch: cache-first for same-origin assets, network-first for everything else
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
-
-  // Only handle our GitHub Pages origin
   if (url.origin !== self.location.origin) return;
 
-  // Network-first for HTML (so updates roll out)
+  // Network-first for HTML so new deployments show up
   if (event.request.headers.get("accept")?.includes("text/html")) {
     event.respondWith(
       fetch(event.request)
@@ -47,7 +51,5 @@ self.addEventListener("fetch", (event) => {
   }
 
   // Cache-first for static assets
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
-  );
+  event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });
