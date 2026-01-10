@@ -65,6 +65,16 @@ function shuffleArray(arr){
   return a;
 }
 
+
+function escapeHtml(s){
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 // ---------- Deck rendering ----------
 
 function updateStudyUI(){
@@ -84,7 +94,16 @@ function updateStudyUI(){
   const text = state.showingQuestion ? card.question : card.answer;
 
   els.sidePill.textContent = side;
-  els.cardContent.textContent = text;
+  els.cardContent.innerHTML = escapeHtml(text);
+  if (window.renderMathInElement) {
+  renderMathInElement(els.cardContent, {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "$", right: "$", display: false }
+    ],
+    throwOnError: false
+  });
+  }
   els.flashcard.classList.remove("hidden");
 
   els.counter.textContent = `Card ${state.idx + 1} of ${total}`;

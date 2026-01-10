@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v3"; // <-- bump this every time you deploy UI changes
+const CACHE_VERSION = "v4"; // <-- bump this every time you deploy UI changes
 const CACHE_NAME = `flashcards-pwa-${CACHE_VERSION}`;
 
 const APP_SHELL = [
