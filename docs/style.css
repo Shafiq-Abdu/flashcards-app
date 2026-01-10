@@ -196,11 +196,12 @@ html, body{
   margin-bottom: 10px;
 }
 
+/* Progress bar (base style) */
 .progress{
   flex:1;
   height: 8px;
   border-radius: 999px;
-  background: #0d0d0d;
+  background: #f0f0f0;
   overflow:hidden;
   border: 1px solid var(--border);
 }
@@ -208,20 +209,6 @@ html, body{
   height: 100%;
   width: 0%;
   background: #111;
-}
-
-.card{
-  border: 1px solid #2a2a2a;;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow2);
-  padding: 16px;
-  background: #0f0f0f;
-  min-height: 210px;
-  display:flex;
-  color: #ffffff;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
 }
 
 .hidden{ display:none; }
@@ -233,16 +220,16 @@ html, body{
   gap: 10px;
 }
 
+/* Base pill style (outside of card if any) */
 .pill{
   font-size: 12px;
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: #100f0f;
+  background: #fff;
 }
 
 .card-content{
-  color: #ffffff;
   font-size: 18px;
   line-height: 1.45;
   margin-top: 12px;
@@ -295,31 +282,44 @@ html, body{
   align-items:center;
   flex-wrap: wrap;
 }
-/* Dark flashcard style */
-.card {
-  background: #0f0f0f;        /* almost black */
-  color: #ffffff;             /* white text */
+
+/* ============================
+   DARK FLASHCARD (ONLY DECK)
+   ============================ */
+
+.card{
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+  padding: 16px;
+  min-height: 210px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+
+  background-color: #0d0d0d;
+  color: #ffffff;
   border: 1px solid #2a2a2a;
 }
 
-/* Question / Answer text */
-.card-content {
+.card-content{
   color: #ffffff;
 }
 
-/* Small labels inside card (Question, Tap to flip) */
-.card .pill,
-.card #tapHint {
-  background: #1a1a1a;
-  color: #eaeaea;
-  border: 1px solid #333;
+.card .pill{
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #333333;
 }
 
-/* Progress bar contrast */
-.progress {
-  background: #2a2a2a;
-}
-.progress-bar {
-  background: #ffffff;
+#tapHint{
+  color: #cfcfcf;
 }
 
+/* Make study progress bar match dark deck style */
+.study .progress{
+  background-color: #2a2a2a;
+}
+.study .progress-bar{
+  background-color: #ffffff;
+}
