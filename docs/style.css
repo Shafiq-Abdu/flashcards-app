@@ -121,7 +121,7 @@ html, body{
   border: 1px dashed var(--border);
   border-radius: 12px;
   padding: 10px 12px;
-  background: #917f2f;
+  background: #e8b2a4;
 }
 .upload input{ width: 100%; }
 .upload-hint{ font-size: 12px; margin-top: 6px; }
