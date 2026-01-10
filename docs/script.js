@@ -429,10 +429,6 @@ document.querySelectorAll(".grade .btn").forEach(btn => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") nextCard();
   if (e.key === "ArrowLeft") prevCard();
-  if (e.key === " "){
-    e.preventDefault();
-    flipCard();
-  }
 });
 
 // Initialize
