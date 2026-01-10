@@ -295,3 +295,31 @@ html, body{
   align-items:center;
   flex-wrap: wrap;
 }
+/* Dark flashcard style */
+.card {
+  background: #0f0f0f;        /* almost black */
+  color: #ffffff;             /* white text */
+  border: 1px solid #2a2a2a;
+}
+
+/* Question / Answer text */
+.card-content {
+  color: #ffffff;
+}
+
+/* Small labels inside card (Question, Tap to flip) */
+.card .pill,
+.card #tapHint {
+  background: #1a1a1a;
+  color: #eaeaea;
+  border: 1px solid #333;
+}
+
+/* Progress bar contrast */
+.progress {
+  background: #2a2a2a;
+}
+.progress-bar {
+  background: #ffffff;
+}
+
